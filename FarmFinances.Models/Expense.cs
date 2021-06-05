@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FarmFinances
+namespace FarmFinances.Models
 {
-    class Expense
+    public class Expense
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public Vendor Vendor { get; set; }
         public Category Category { get; set; }
