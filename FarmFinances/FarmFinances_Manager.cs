@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FarmFinances.Models;
+using FarmFinances.Database;
 
 namespace FarmFinances
 {
     class FarmFinances_Manager
     {
-        private AllExpenses allExpenses;
+        //private AllExpenses allExpenses;
+        private FarmContext allExpenses;
 
         public FarmFinances_Manager()
         {
-            allExpenses = new AllExpenses();
+            //allExpenses = new AllExpenses();
+            allExpenses = new FarmContext();
         }
         public void showMenu()
         {
@@ -53,13 +56,15 @@ namespace FarmFinances
             Category selectedCategory = null;
             Vendor selectedVendor = null;
 
-            Console.Write("Enter purchase name: ");
+            Console.Write("\n\nEnter purchase name: ");
             string name = Console.ReadLine();
 
             int vendorCounter = 1;
             Console.WriteLine();
             Console.WriteLine("Vendors:");
-            foreach(Vendor vendor in allExpenses.Vendors)
+
+            List<Vendor> vendors = allExpenses.Vendors.ToList<Vendor>();
+            foreach (Vendor vendor in vendors)
             {
                 Console.WriteLine((vendorCounter++) + " " + vendor.Name + "(" + vendor.Type + ")");
                 Console.WriteLine("\t" + vendor.Location);
@@ -70,13 +75,13 @@ namespace FarmFinances
 
             if (Int32.TryParse(vendorIndex, out int vindex))
             {
-                if ((vindex < 1) || (vindex > allExpenses.Vendors.Count))
+                if ((vindex < 1) || (vindex > allExpenses.Vendors.Count()))
                 {
                     Console.WriteLine("Invalid entry");
                     return;
                 }
 
-                selectedVendor = allExpenses.Vendors[vindex - 1];
+                selectedVendor = vendors[vindex - 1];
             }
             else
             {
@@ -87,7 +92,9 @@ namespace FarmFinances
             int categoryCounter = 1;
             Console.WriteLine();
             Console.WriteLine("Categories:");
-            foreach(Category category in allExpenses.Categories)
+
+            List<Category> categories = allExpenses.Categories.ToList<Category>();
+            foreach(Category category in categories)
             {
                 Console.WriteLine((categoryCounter++) + " " + category.ChildCategory + "(" + category.ParentCategory + ")");
             }
@@ -96,13 +103,13 @@ namespace FarmFinances
             string categoryIndex = Console.ReadLine();
             if ( Int32.TryParse(categoryIndex, out int index ))
             {
-                if (( index < 1 ) || ( index > allExpenses.Categories.Count ))
+                if (( index < 1 ) || ( index > allExpenses.Categories.Count()))
                 {
                     Console.WriteLine("Invalid entry");
                     return;
                 }
 
-                selectedCategory = allExpenses.Categories[index - 1];
+               selectedCategory = categories[index - 1];
             }
             else
             {
@@ -128,11 +135,14 @@ namespace FarmFinances
             newExpense.PurchaseDate = Convert.ToDateTime(purchaseDate);
             newExpense.PurchaseAmount = Convert.ToDecimal(purchaseAmount);
 
-            //Save to database.
+            //Save to database
+            allExpenses.SaveChanges();
         }
 
         private void ViewAllExpensesUI()
         {
+            Console.WriteLine();
+
             foreach(Expense expense in allExpenses.Expenses)
             {
                 Console.WriteLine(expense.Name + ", $" + expense.PurchaseAmount + ", " + expense.PurchaseDate);
@@ -145,8 +155,20 @@ namespace FarmFinances
 
         private void AddVendorUI()
         {
-            Console.Write("Add vendor name: ");
+            Console.WriteLine("\n\nExisting vendors");
+            foreach( Vendor thisVendor in allExpenses.Vendors)
+            {
+                Console.WriteLine("\t" + thisVendor.Name + " (" + thisVendor.Type + ", " + thisVendor.Location + ")  [ " + thisVendor.ID + " ]");
+            }
+
+            Console.Write("\nAdd vendor name: ");
             string name = Console.ReadLine();
+
+            if (name.Trim().Length == 0)
+            {
+                Console.WriteLine("Vendor name is required!\n\n");
+                return;
+            }
 
             Console.Write("Add vendor type: ");
             string type = Console.ReadLine();
@@ -155,17 +177,39 @@ namespace FarmFinances
             string location = Console.ReadLine();
 
             Vendor newVendor = allExpenses.AddVendor(name, type, location);
+
+            allExpenses.SaveChanges();
         }
 
         private void AddCategoryUI()
         {
-            Console.Write("Add parent category: ");
+            Console.WriteLine("\n\nExisting categories");
+            foreach (Category thisCategory in allExpenses.Categories)
+            {
+                Console.WriteLine("\t" + thisCategory.ChildCategory + " (" + thisCategory.ParentCategory + ")");
+            }
+
+            Console.Write("\nAdd parent category: ");
             string parentCategory = Console.ReadLine();
+
+            if (parentCategory.Trim().Length == 0)
+            {
+                Console.WriteLine("Parent category is required!\n\n");
+                return;
+            }
 
             Console.Write("Add child category: ");
             string childCategory = Console.ReadLine();
 
+            if (childCategory.Trim().Length == 0)
+            {
+                Console.WriteLine("Child category is required!\n\n");
+                return;
+            }
+
             Category newCategory = allExpenses.AddCategory(parentCategory, childCategory);
+
+            allExpenses.SaveChanges();
         }
     }
 }
