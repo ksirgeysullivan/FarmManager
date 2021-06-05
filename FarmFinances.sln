@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmFinances", "FarmFinance
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmFinances.Models", "FarmFinances.Models\FarmFinances.Models.csproj", "{49D62B4D-861B-43A7-9A94-5EB5BD4E5D8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmFinances.Database", "FarmFinances.Database\FarmFinances.Database.csproj", "{60D45A3D-337D-4CF7-91C3-0DBE36FB7586}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{49D62B4D-861B-43A7-9A94-5EB5BD4E5D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49D62B4D-861B-43A7-9A94-5EB5BD4E5D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49D62B4D-861B-43A7-9A94-5EB5BD4E5D8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60D45A3D-337D-4CF7-91C3-0DBE36FB7586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60D45A3D-337D-4CF7-91C3-0DBE36FB7586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60D45A3D-337D-4CF7-91C3-0DBE36FB7586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60D45A3D-337D-4CF7-91C3-0DBE36FB7586}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
