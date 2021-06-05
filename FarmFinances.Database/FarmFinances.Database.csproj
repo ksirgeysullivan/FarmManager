@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202106051645145_VendorNameRequired.designer.cs">
       <DependentUpon>202106051645145_VendorNameRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106051739369_NewRequiredFields.cs" />
+    <Compile Include="Migrations\202106051739369_NewRequiredFields.designer.cs">
+      <DependentUpon>202106051739369_NewRequiredFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106051645145_VendorNameRequired.resx">
       <DependentUpon>202106051645145_VendorNameRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051739369_NewRequiredFields.resx">
+      <DependentUpon>202106051739369_NewRequiredFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -24,6 +24,10 @@ namespace FarmFinances
 
             do
             {
+                decimal sumAmount = allExpenses.Expenses.Sum(exp => exp.PurchaseAmount);
+                Console.WriteLine("Sum is $" + sumAmount);
+                Console.WriteLine();
+
                 Console.WriteLine("1. Add a Farm Expense.");
                 Console.WriteLine("2. View All Expenses.");
                 Console.WriteLine("3. Add a Vendor.");
@@ -132,11 +136,33 @@ namespace FarmFinances
             //Set additional properties.
             newExpense.Category = selectedCategory;
             newExpense.Description = description;
-            newExpense.PurchaseDate = Convert.ToDateTime(purchaseDate);
+            
+            //newExpense.PurchaseDate = Convert.ToDateTime(purchaseDate);
+
+            if(DateTime.TryParse(purchaseDate, out DateTime parsedDate))
+            {
+                newExpense.PurchaseDate = parsedDate;
+            }
+
+            //
             newExpense.PurchaseAmount = Convert.ToDecimal(purchaseAmount);
 
+            if(Decimal.TryParse(purchaseAmount, out Decimal parsedAmount))
+            {
+                newExpense.PurchaseAmount = parsedAmount;
+            }
+
             //Save to database
-            allExpenses.SaveChanges();
+            try
+            {
+                allExpenses.SaveChanges();
+            } 
+            catch(Exception e)
+            {
+                Console.WriteLine("Error saving to the database.");
+                Console.WriteLine(e.Message);
+            }
+            
         }
 
         private void ViewAllExpensesUI()
