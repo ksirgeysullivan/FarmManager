@@ -9,17 +9,17 @@ namespace FarmFinanceWeb
 {
     public partial class Default : System.Web.UI.Page
     {
-        private string valueFromUser;
-        private int testInt;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            valueFromUser = PhoneTextBox.Text;
-            testInt = 32;
+            
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
+            Response.Redirect("http://cnn.com");
+
             string acceptedCharacter = "()-";
 
             string possiblePhoneNumber = PhoneTextBox.Text.Trim();
