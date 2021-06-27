@@ -15,19 +15,41 @@ namespace FarmFinanceWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Pull the list of vendors and display them
+            // Create context to access the database
             context = new FarmContext();
-            var vendors = context.Vendors;
+
+            Add_Vendors_To_PlaceHolder();
+
+        }
+
+        private void Add_Vendors_To_PlaceHolder()
+        {
+            // Pull the list of vendors and display them
+            var vendors = context.Vendors.OrderBy(v => v.Name);
 
             // Step through each vendor
-            foreach( Vendor thisVendor in vendors )
+            foreach (Vendor thisVendor in vendors)
             {
                 // Create new label for this vendor
                 Label vendorLabel = new Label();
-                vendorLabel.Text = $"{thisVendor.Name} ( {thisVendor.Location} )<br />";
+                vendorLabel.Text = $"{thisVendor.Name} ( {thisVendor.Location} ) ";
+
+                // Add link for details
+                HyperLink vendorLink = new HyperLink();
+                vendorLink.Text = "( details )";
+                vendorLink.NavigateUrl = "VendorDetails.aspx?id=" + thisVendor.ID;
+
+                // Add a new line break
+                Literal breakLabel = new Literal();
+                breakLabel.Text = "<br />";
+
+
 
                 // Add this label to the placeholder
                 ExistingVendorsPlaceHolder.Controls.Add(vendorLabel);
+                ExistingVendorsPlaceHolder.Controls.Add(vendorLink);
+                ExistingVendorsPlaceHolder.Controls.Add(breakLabel);
+
             }
         }
 
