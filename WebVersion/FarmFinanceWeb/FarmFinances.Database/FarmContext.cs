@@ -10,7 +10,7 @@ namespace FarmFinances.Database
 {
     public class FarmContext : DbContext
     {
-        public FarmContext() : base("MarkConnection")
+        public FarmContext() : base("KatConnection")
         {
 
         }
