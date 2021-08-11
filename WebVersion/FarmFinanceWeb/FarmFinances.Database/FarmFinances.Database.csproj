@@ -64,6 +64,10 @@
     <Compile Include="Migrations\202106051739369_NewRequiredFields.designer.cs">
       <DependentUpon>202106051739369_NewRequiredFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106271948399_AddDescriptionToCategories.cs" />
+    <Compile Include="Migrations\202106271948399_AddDescriptionToCategories.designer.cs">
+      <DependentUpon>202106271948399_AddDescriptionToCategories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106051739369_NewRequiredFields.resx">
       <DependentUpon>202106051739369_NewRequiredFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106271948399_AddDescriptionToCategories.resx">
+      <DependentUpon>202106271948399_AddDescriptionToCategories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

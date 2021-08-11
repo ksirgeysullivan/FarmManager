@@ -16,30 +16,6 @@ namespace FarmFinanceWeb
             
         }
 
-        protected void SubmitButton_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("http://cnn.com");
-
-            string acceptedCharacter = "()-";
-
-            string possiblePhoneNumber = PhoneTextBox.Text.Trim();
-
-            bool isPhoneNumber = true;
-            foreach( char thisChar in possiblePhoneNumber)
-            {
-                if (( !acceptedCharacter.Contains(thisChar)) && (!Char.IsDigit(thisChar)))
-                {
-                    isPhoneNumber = false;
-                    break;
-                }
-            }
-
-            if (isPhoneNumber)
-                ResponseLabel.Text = "Looks good!";
-            else
-                ResponseLabel.Text = "Not a valid phone number";
-
-
-        }
+   
     }
 }

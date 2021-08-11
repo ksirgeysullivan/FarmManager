@@ -17,5 +17,7 @@ namespace FarmFinances.Models
         [Required]
         public string ChildCategory { get; set; }
 
+        public string Description { get; set; }
+
     }
 }

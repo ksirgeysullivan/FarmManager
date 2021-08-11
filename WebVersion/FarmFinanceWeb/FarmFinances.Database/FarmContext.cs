@@ -21,12 +21,32 @@ namespace FarmFinances.Database
 
         public DbSet<Category> Categories { get; set; }
 
-        public Expense AddExpense(string name, Vendor vendor)
+        public Expense AddExpense(string name, DateTime date, Decimal amount, int vendorId, int categoryId, String description)
         {
             Expense newExpense = new Expense();
             newExpense.Name = name;
-            newExpense.Vendor = vendor;
+            newExpense.PurchaseDate = date;
+            newExpense.PurchaseAmount = amount;
+            
+            foreach (Vendor thisVendor in Vendors) 
+            {
+                if (thisVendor.ID == vendorId)
+                {
+                    newExpense.Vendor = thisVendor;
+                    break;
+                }
+            }
 
+            foreach(Category thisCategory in Categories)
+            {
+                if (thisCategory.ID == categoryId)
+                {
+                    newExpense.Category = thisCategory;
+                    break;
+                }
+            }
+
+            newExpense.Description = description;
             Expenses.Add(newExpense);
 
             return newExpense;

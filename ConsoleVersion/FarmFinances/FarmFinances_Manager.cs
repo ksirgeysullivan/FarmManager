@@ -10,13 +10,13 @@ namespace FarmFinances
 {
     class FarmFinances_Manager
     {
-        //private AllExpenses allExpenses;
-        private FarmContext allExpenses;
+        //private AllExpenses farmContext;
+        private FarmContext farmContext;
 
         public FarmFinances_Manager()
         {
-            //allExpenses = new AllExpenses();
-            allExpenses = new FarmContext();
+            //farmContext = new AllExpenses();
+            farmContext = new FarmContext();
         }
         public void showMenu()
         {
@@ -24,7 +24,7 @@ namespace FarmFinances
 
             do
             {
-                decimal sumAmount = allExpenses.Expenses.Sum(exp => exp.PurchaseAmount);
+                decimal sumAmount = farmContext.Expenses.Sum(exp => exp.PurchaseAmount);
                 Console.WriteLine("Sum is $" + sumAmount);
                 Console.WriteLine();
 
@@ -67,19 +67,19 @@ namespace FarmFinances
             Console.WriteLine();
             Console.WriteLine("Vendors:");
 
-            List<Vendor> vendors = allExpenses.Vendors.ToList<Vendor>();
+            List<Vendor> vendors = farmContext.Vendors.ToList<Vendor>(); // 
             foreach (Vendor vendor in vendors)
             {
                 Console.WriteLine((vendorCounter++) + " " + vendor.Name + "(" + vendor.Type + ")");
                 Console.WriteLine("\t" + vendor.Location);
             }
 
-            Console.Write("\nEnter index for vendor: ");
+            Console.Write("\nEnter index for vendor: "); 
             string vendorIndex = Console.ReadLine();
 
             if (Int32.TryParse(vendorIndex, out int vindex))
             {
-                if ((vindex < 1) || (vindex > allExpenses.Vendors.Count()))
+                if ((vindex < 1) || (vindex > farmContext.Vendors.Count()))
                 {
                     Console.WriteLine("Invalid entry");
                     return;
@@ -97,7 +97,7 @@ namespace FarmFinances
             Console.WriteLine();
             Console.WriteLine("Categories:");
 
-            List<Category> categories = allExpenses.Categories.ToList<Category>();
+            List<Category> categories = farmContext.Categories.ToList<Category>(); // 
             foreach(Category category in categories)
             {
                 Console.WriteLine((categoryCounter++) + " " + category.ChildCategory + "(" + category.ParentCategory + ")");
@@ -107,7 +107,7 @@ namespace FarmFinances
             string categoryIndex = Console.ReadLine();
             if ( Int32.TryParse(categoryIndex, out int index ))
             {
-                if (( index < 1 ) || ( index > allExpenses.Categories.Count()))
+                if (( index < 1 ) || ( index > farmContext.Categories.Count()))
                 {
                     Console.WriteLine("Invalid entry");
                     return;
@@ -131,7 +131,7 @@ namespace FarmFinances
             string purchaseAmount = Console.ReadLine();
 
             //Add new expense with bare minimum.
-            Expense newExpense = allExpenses.AddExpense(name, selectedVendor);
+            Expense newExpense = farmContext.AddExpense(name, selectedVendor);
 
             //Set additional properties.
             newExpense.Category = selectedCategory;
@@ -155,7 +155,7 @@ namespace FarmFinances
             //Save to database
             try
             {
-                allExpenses.SaveChanges();
+                farmContext.SaveChanges();
             } 
             catch(Exception e)
             {
@@ -169,7 +169,7 @@ namespace FarmFinances
         {
             Console.WriteLine();
 
-            foreach(Expense expense in allExpenses.Expenses)
+            foreach(Expense expense in farmContext.Expenses) // I don't know how this works
             {
                 Console.WriteLine(expense.Name + ", $" + expense.PurchaseAmount + ", " + expense.PurchaseDate);
                 Console.WriteLine("\t" + expense.Vendor.Name + " (" + expense.Vendor.Type + ", " + expense.Vendor.Location + ")");
@@ -182,7 +182,7 @@ namespace FarmFinances
         private void AddVendorUI()
         {
             Console.WriteLine("\n\nExisting vendors");
-            foreach( Vendor thisVendor in allExpenses.Vendors)
+            foreach( Vendor thisVendor in farmContext.Vendors)
             {
                 Console.WriteLine("\t" + thisVendor.Name + " (" + thisVendor.Type + ", " + thisVendor.Location + ")  [ " + thisVendor.ID + " ]");
             }
@@ -202,15 +202,15 @@ namespace FarmFinances
             Console.Write("Add vendor location: ");
             string location = Console.ReadLine();
 
-            Vendor newVendor = allExpenses.AddVendor(name, type, location);
+            Vendor newVendor = farmContext.AddVendor(name, type, location);
 
-            allExpenses.SaveChanges();
+            farmContext.SaveChanges();
         }
 
         private void AddCategoryUI()
         {
             Console.WriteLine("\n\nExisting categories");
-            foreach (Category thisCategory in allExpenses.Categories)
+            foreach (Category thisCategory in farmContext.Categories)
             {
                 Console.WriteLine("\t" + thisCategory.ChildCategory + " (" + thisCategory.ParentCategory + ")");
             }
@@ -233,9 +233,9 @@ namespace FarmFinances
                 return;
             }
 
-            Category newCategory = allExpenses.AddCategory(parentCategory, childCategory);
+            Category newCategory = farmContext.AddCategory(parentCategory, childCategory);
 
-            allExpenses.SaveChanges();
+            farmContext.SaveChanges();
         }
     }
 }

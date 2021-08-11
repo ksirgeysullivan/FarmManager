@@ -43,8 +43,6 @@ namespace FarmFinanceWeb
                 Literal breakLabel = new Literal();
                 breakLabel.Text = "<br />";
 
-
-
                 // Add this label to the placeholder
                 ExistingVendorsPlaceHolder.Controls.Add(vendorLabel);
                 ExistingVendorsPlaceHolder.Controls.Add(vendorLink);
@@ -96,14 +94,10 @@ namespace FarmFinanceWeb
             if (!valid)
                 return;
 
-            // Create the vendor object
-            Vendor newVendor = new Vendor();
-            newVendor.Name = name;
-            newVendor.Location = location;
-            newVendor.Type = type;
+            // Add the vendor
+            context.AddVendor(name, type, location);
 
-            // Add to the context and save to the database
-            context.Vendors.Add(newVendor);
+            // Save to the database
             context.SaveChanges();
 
             // Reload this page, by redirecting to self

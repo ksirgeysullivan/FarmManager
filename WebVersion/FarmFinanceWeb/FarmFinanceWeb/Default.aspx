@@ -14,17 +14,9 @@
     </header>
 
     <a href="Vendors.aspx">Vendors</a><br /><br />
+    <a href="Categories.aspx">Categories</a><br /><br />
+    <a href="Expenses.aspx">Expenses</a><br /><br />
 
-
-    <form id="form1" runat="server">
-        <div>
-            Phone:
-            <asp:TextBox ID="PhoneTextBox" runat="server"></asp:TextBox>
-            <asp:Label ID="ResponseLabel" runat="server" Text=""></asp:Label>
-            <br /><br />
-            <asp:Button ID="SubmitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" />
-        </div>
-    </form>
 
     <footer>
         <br /><br />
